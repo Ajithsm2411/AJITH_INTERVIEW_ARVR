@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Engineering Diagrams</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      padding: 40px;
+    }
+    .diagram-container {
+      width: 1400px;
+      margin: 0 auto 60px auto;
+      background: #111827;
+      border: 1px solid #1f293d;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .diagram-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .diagram-subtitle {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 28px;
+    }
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. WORK FLOW DIAGRAM -->
+  <div class="diagram-container" id="workflow-card">
+    <div class="diagram-title">
+      <span>⚡</span> FIGURE 3.1: VIRTUAL REALITY TELEPRESENCE SYSTEM WORKFLOW
+    </div>
+    <div class="diagram-subtitle">
+      End-to-End Execution Flow from 6-DoF Sensor Acquisition to Real-Time Spatial Synthesis & Rubric Finalization
+    </div>
+    <svg viewBox="0 0 1320 620" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1e3a8a" />
+          <stop offset="100%" stop-color="#0284c7" />
+        </linearGradient>
+        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#581c87" />
+          <stop offset="100%" stop-color="#9333ea" />
+        </linearGradient>
+        <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#064e3b" />
+          <stop offset="100%" stop-color="#10b981" />
+        </linearGradient>
+        <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#78350f" />
+          <stop offset="100%" stop-color="#f59e0b" />
+        </linearGradient>
+        <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#881337" />
+          <stop offset="100%" stop-color="#f43f5e" />
+        </linearGradient>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+          <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+        </filter>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+        </marker>
+      </defs>
+
+      <!-- ROW 1: SENSOR ACQUISITION & USER INIT -->
+      <!-- Node 1: User / Headset Launch -->
+      <g filter="url(#shadow)">
+        <rect x="40" y="50" width="220" height="90" rx="10" fill="url(#blueGrad)" stroke="#38bdf8" stroke-width="2"/>
+        <text x="150" y="85" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">1. USER AUTH & ROLE</text>
+        <text x="150" y="105" text-anchor="middle" fill="#bae6fd" font-size="11">Select Role: Interviewer</text>
+        <text x="150" y="122" text-anchor="middle" fill="#bae6fd" font-size="11">or Candidate Viewpoint</text>
+      </g>
+
+      <!-- Arrow 1 -> 2 -->
+      <line x1="260" y1="95" x2="310" y2="95" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 2: 6-DoF Tracking Subsystem -->
+      <g filter="url(#shadow)">
+        <rect x="310" y="50" width="220" height="90" rx="10" fill="url(#blueGrad)" stroke="#38bdf8" stroke-width="2"/>
+        <text x="420" y="85" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">2. 6-DoF TRACKING</text>
+        <text x="420" y="105" text-anchor="middle" fill="#bae6fd" font-size="11">OpenXR / WebXR Pose Engine</text>
+        <text x="420" y="122" text-anchor="middle" fill="#bae6fd" font-size="11">HMD & Controller Raycasts</text>
+      </g>
+
+      <!-- Arrow 2 -> 3 -->
+      <line x1="530" y1="95" x2="580" y2="95" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 3: Telemetry Serialization -->
+      <g filter="url(#shadow)">
+        <rect x="580" y="50" width="220" height="90" rx="10" fill="url(#purpleGrad)" stroke="#c084fc" stroke-width="2"/>
+        <text x="690" y="85" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">3. KINEMATICS SYNC</text>
+        <text x="690" y="105" text-anchor="middle" fill="#e9d5ff" font-size="11">Pose Extrapolation (12ms)</text>
+        <text x="690" y="122" text-anchor="middle" fill="#e9d5ff" font-size="11">Serialize JSON Telemetry</text>
+      </g>
+
+      <!-- Arrow 3 -> 4 -->
+      <line x1="800" y1="95" x2="850" y2="95" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 4: ASP.NET Core Kestrel Gateway -->
+      <g filter="url(#shadow)">
+        <rect x="850" y="50" width="220" height="90" rx="10" fill="url(#emeraldGrad)" stroke="#34d399" stroke-width="2"/>
+        <text x="960" y="85" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">4. WEBSOCKET ROUTER</text>
+        <text x="960" y="105" text-anchor="middle" fill="#a7f3d0" font-size="11">Concurrent Room Broker</text>
+        <text x="960" y="122" text-anchor="middle" fill="#a7f3d0" font-size="11">Peer Multiplexing & Heartbeat</text>
+      </g>
+
+      <!-- Downward Arrow to Row 2 -->
+      <path d="M 960 140 L 960 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- ROW 2: AUDIO / VISUAL & AVATAR SYNCHRONIZATION -->
+      <!-- Node 5: Audio Viseme & Speech Analysis -->
+      <g filter="url(#shadow)">
+        <rect x="850" y="210" width="220" height="90" rx="10" fill="url(#purpleGrad)" stroke="#c084fc" stroke-width="2"/>
+        <text x="960" y="245" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">5. AUDIO & VISEMES</text>
+        <text x="960" y="265" text-anchor="middle" fill="#e9d5ff" font-size="11">Microphone Web Audio API</text>
+        <text x="960" y="282" text-anchor="middle" fill="#e9d5ff" font-size="11">VU Telemetry & STT Engine</text>
+      </g>
+
+      <!-- Arrow 5 <- 6 -->
+      <line x1="850" y1="255" x2="800" y2="255" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 6: 3D Scene Graph & Avatar Synthesis -->
+      <g filter="url(#shadow)">
+        <rect x="580" y="210" width="220" height="90" rx="10" fill="url(#blueGrad)" stroke="#38bdf8" stroke-width="2"/>
+        <text x="690" y="245" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">6. AVATAR KINEMATICS</text>
+        <text x="690" y="265" text-anchor="middle" fill="#bae6fd" font-size="11">Face-to-Face Spatial Alignment</text>
+        <text x="690" y="282" text-anchor="middle" fill="#bae6fd" font-size="11">Head Culling & Blendshapes</text>
+      </g>
+
+      <!-- Arrow 6 <- 7 -->
+      <line x1="580" y1="255" x2="530" y2="255" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 7: Spatial Presentation Tablet -->
+      <g filter="url(#shadow)">
+        <rect x="310" y="210" width="220" height="90" rx="10" fill="url(#amberGrad)" stroke="#fcd34d" stroke-width="2"/>
+        <text x="420" y="245" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">7. SPATIAL HUD & TABLET</text>
+        <text x="420" y="265" text-anchor="middle" fill="#fef3c7" font-size="11">Real-Time Question Display</text>
+        <text x="420" y="282" text-anchor="middle" fill="#fef3c7" font-size="11">Dynamic Candidate Dossier</text>
+      </g>
+
+      <!-- Arrow 7 <- 8 -->
+      <line x1="310" y1="255" x2="260" y2="255" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 8: Evaluation & Scoring Rubric -->
+      <g filter="url(#shadow)">
+        <rect x="40" y="210" width="220" height="90" rx="10" fill="url(#amberGrad)" stroke="#fcd34d" stroke-width="2"/>
+        <text x="150" y="245" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">8. INTERVIEW RUBRIC</text>
+        <text x="150" y="265" text-anchor="middle" fill="#fef3c7" font-size="11">5-Star Question Scoring</text>
+        <text x="150" y="282" text-anchor="middle" fill="#fef3c7" font-size="11">Quick Tags & Notes Auto-Save</text>
+      </g>
+
+      <!-- Downward Arrow from Node 8 to Row 3 -->
+      <path d="M 150 300 L 150 370" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- ROW 3: CONCLUSION & REPORT RECORDING -->
+      <!-- Node 9: Session Conclusion Modal -->
+      <g filter="url(#shadow)">
+        <rect x="40" y="370" width="220" height="90" rx="10" fill="url(#roseGrad)" stroke="#fda4af" stroke-width="2"/>
+        <text x="150" y="405" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">9. CONCLUDE MODAL</text>
+        <text x="150" y="425" text-anchor="middle" fill="#ffe4e6" font-size="11">Verify Complete Assessment</text>
+        <text x="150" y="442" text-anchor="middle" fill="#ffe4e6" font-size="11">Calculate Weighted Score</text>
+      </g>
+
+      <!-- Arrow 9 -> 10 -->
+      <line x1="260" y1="415" x2="310" y2="415" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 10: Scorecard Compilation -->
+      <g filter="url(#shadow)">
+        <rect x="310" y="370" width="220" height="90" rx="10" fill="url(#emeraldGrad)" stroke="#34d399" stroke-width="2"/>
+        <text x="420" y="405" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">10. SCORECARD LOG</text>
+        <text x="420" y="425" text-anchor="middle" fill="#a7f3d0" font-size="11">Recommendation: Strong Hire</text>
+        <text x="420" y="442" text-anchor="middle" fill="#a7f3d0" font-size="11">Overall Score (4.8 / 5.0)</text>
+      </g>
+
+      <!-- Arrow 10 -> 11 -->
+      <line x1="530" y1="415" x2="580" y2="415" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- Node 11: Persistent Storage / Audit Archive -->
+      <g filter="url(#shadow)">
+        <rect x="580" y="370" width="220" height="90" rx="10" fill="url(#emeraldGrad)" stroke="#34d399" stroke-width="2"/>
+        <text x="690" y="405" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">11. RECRUITMENT DB</text>
+        <text x="690" y="425" text-anchor="middle" fill="#a7f3d0" font-size="11">Executive ATS Archive</text>
+        <text x="690" y="442" text-anchor="middle" fill="#a7f3d0" font-size="11">Telemetry & Audit Trails</text>
+      </g>
+
+      <!-- Decorative Framework Legend -->
+      <rect x="40" y="500" width="1030" height="75" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+      <text x="60" y="525" fill="#38bdf8" font-size="12" font-weight="700">PIPELINE SUBSYSTEMS:</text>
+      <circle cx="240" cy="522" r="6" fill="#0284c7"/>
+      <text x="255" y="526" fill="#cbd5e1" font-size="12">Client VR & Sensor Loop</text>
+      <circle cx="430" cy="522" r="6" fill="#9333ea"/>
+      <text x="445" y="526" fill="#cbd5e1" font-size="12">Telemetry & Audio Visemes</text>
+      <circle cx="635" cy="522" r="6" fill="#10b981"/>
+      <text x="650" y="526" fill="#cbd5e1" font-size="12">ASP.NET Server & Storage</text>
+      <circle cx="835" cy="522" r="6" fill="#f59e0b"/>
+      <text x="850" y="526" fill="#cbd5e1" font-size="12">Rubric & Candidate Dossier</text>
+      <text x="60" y="555" fill="#94a3b8" font-size="11">Target Latency: Motion-to-Photon &lt; 12ms | Network Heartbeat: 30Hz WebSocket Pings | Frame Rate: 90Hz Sustained WebGL/WebXR</text>
+    </svg>
+  </div>
+
+  <!-- 2. ER DIAGRAM -->
+  <div class="diagram-container" id="er-card">
+    <div class="diagram-title">
+      <span>📊</span> FIGURE 3.2: RELATIONAL DATABASE ENTITY-RELATIONSHIP (ER) DIAGRAM
+    </div>
+    <div class="diagram-subtitle">
+      Enterprise Relational Schema for Multi-User Spatial Telepresence, Rubric Assessments & Candidate Dossiers
+    </div>
+    <svg viewBox="0 0 1320 780" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="crow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 6 L 0 12" fill="none" stroke="#38bdf8" stroke-width="2"/>
+        </marker>
+        <marker id="one" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+          <line x1="6" y1="0" x2="6" y2="12" stroke="#38bdf8" stroke-width="2"/>
+        </marker>
+      </defs>
+
+      <!-- Entity 1: INTERVIEW_SESSION (Center Core) -->
+      <g filter="url(#shadow)">
+        <rect x="510" y="40" width="300" height="190" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <rect x="510" y="40" width="300" height="35" rx="8" fill="#0284c7"/>
+        <text x="660" y="63" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">INTERVIEW_SESSION</text>
+        <text x="530" y="95" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>SessionID : VARCHAR(36)</text>
+        <text x="530" y="115" fill="#f8fafc" font-size="11">RoomKey : VARCHAR(64)</text>
+        <text x="530" y="135" fill="#f8fafc" font-size="11">ScheduledAt : DATETIME</text>
+        <text x="530" y="155" fill="#f8fafc" font-size="11">DurationSeconds : INT</text>
+        <text x="530" y="175" fill="#f8fafc" font-size="11">Status : VARCHAR(24) [Active/Ended]</text>
+        <text x="530" y="195" fill="#f8fafc" font-size="11">RecommendedHireStatus : VARCHAR(32)</text>
+        <text x="530" y="215" fill="#f8fafc" font-size="11">FinalScore : DECIMAL(3,2)</text>
+      </g>
+
+      <!-- Entity 2: PARTICIPANT (Left) -->
+      <g filter="url(#shadow)">
+        <rect x="60" y="40" width="300" height="180" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <rect x="60" y="40" width="300" height="35" rx="8" fill="#0284c7"/>
+        <text x="210" y="63" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">PARTICIPANT</text>
+        <text x="80" y="95" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>ParticipantID : VARCHAR(36)</text>
+        <text x="80" y="115" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>SessionID : VARCHAR(36)</text>
+        <text x="80" y="135" fill="#f8fafc" font-size="11">FullName : VARCHAR(128)</text>
+        <text x="80" y="155" fill="#f8fafc" font-size="11">Email : VARCHAR(128)</text>
+        <text x="80" y="175" fill="#f8fafc" font-size="11">Role : VARCHAR(24) [Interviewer/Candidate]</text>
+        <text x="80" y="195" fill="#f8fafc" font-size="11">ClientPlatform : VARCHAR(32) [WebXR/Unity]</text>
+      </g>
+
+      <!-- Relationship Line: INTERVIEW_SESSION (1) to PARTICIPANT (M) -->
+      <line x1="510" y1="120" x2="360" y2="120" stroke="#38bdf8" stroke-width="2" marker-start="url(#one)" marker-end="url(#crow)"/>
+      <text x="435" y="112" text-anchor="middle" fill="#94a3b8" font-size="11">1 : N (Hosts)</text>
+
+      <!-- Entity 3: CANDIDATE_PROFILE (Far Left Bottom) -->
+      <g filter="url(#shadow)">
+        <rect x="60" y="300" width="300" height="190" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+        <rect x="60" y="300" width="300" height="35" rx="8" fill="#7e22ce"/>
+        <text x="210" y="323" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">CANDIDATE_PROFILE</text>
+        <text x="80" y="355" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>ProfileID : VARCHAR(36)</text>
+        <text x="80" y="375" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>ParticipantID : VARCHAR(36)</text>
+        <text x="80" y="395" fill="#f8fafc" font-size="11">TargetPosition : VARCHAR(128)</text>
+        <text x="80" y="415" fill="#f8fafc" font-size="11">ExperienceYears : INT</text>
+        <text x="80" y="435" fill="#f8fafc" font-size="11">MatchScorePercent : INT</text>
+        <text x="80" y="455" fill="#f8fafc" font-size="11">SkillsList : TEXT (JSON)</text>
+        <text x="80" y="475" fill="#f8fafc" font-size="11">DossierSummary : TEXT</text>
+      </g>
+
+      <!-- Relationship Line: PARTICIPANT (1) to CANDIDATE_PROFILE (1) -->
+      <line x1="210" y1="220" x2="210" y2="300" stroke="#a855f7" stroke-width="2" marker-start="url(#one)" marker-end="url(#one)"/>
+      <text x="245" y="260" text-anchor="middle" fill="#c084fc" font-size="11">1 : 1 (Possesses)</text>
+
+      <!-- Entity 4: EVALUATION_QUESTION (Top Right) -->
+      <g filter="url(#shadow)">
+        <rect x="960" y="40" width="300" height="175" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+        <rect x="960" y="40" width="300" height="35" rx="8" fill="#059669"/>
+        <text x="1110" y="63" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">EVALUATION_QUESTION</text>
+        <text x="980" y="95" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>QuestionID : VARCHAR(36)</text>
+        <text x="980" y="115" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>SessionID : VARCHAR(36)</text>
+        <text x="980" y="135" fill="#f8fafc" font-size="11">OrderIndex : INT (1..5)</text>
+        <text x="980" y="155" fill="#f8fafc" font-size="11">Category : VARCHAR(64)</text>
+        <text x="980" y="175" fill="#f8fafc" font-size="11">QuestionPrompt : TEXT</text>
+        <text x="980" y="195" fill="#f8fafc" font-size="11">ReferenceAnswer : TEXT</text>
+      </g>
+
+      <!-- Relationship Line: INTERVIEW_SESSION (1) to EVALUATION_QUESTION (N) -->
+      <line x1="810" y1="120" x2="960" y2="120" stroke="#38bdf8" stroke-width="2" marker-start="url(#one)" marker-end="url(#crow)"/>
+      <text x="885" y="112" text-anchor="middle" fill="#94a3b8" font-size="11">1 : N (Contains)</text>
+
+      <!-- Entity 5: QUESTION_SCORE (Center Bottom) -->
+      <g filter="url(#shadow)">
+        <rect x="510" y="300" width="300" height="180" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <rect x="510" y="300" width="300" height="35" rx="8" fill="#d97706"/>
+        <text x="660" y="323" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">QUESTION_SCORE</text>
+        <text x="530" y="355" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>ScoreID : VARCHAR(36)</text>
+        <text x="530" y="375" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>QuestionID : VARCHAR(36)</text>
+        <text x="530" y="395" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>EvaluatorID : VARCHAR(36)</text>
+        <text x="530" y="415" fill="#f8fafc" font-size="11">StarRating : INT (1..5)</text>
+        <text x="530" y="435" fill="#f8fafc" font-size="11">CandidateAnswerText : TEXT</text>
+        <text x="530" y="455" fill="#f8fafc" font-size="11">EvaluatedAt : DATETIME</text>
+      </g>
+
+      <!-- Relationship: EVALUATION_QUESTION (1) to QUESTION_SCORE (N) -->
+      <path d="M 1110 215 L 1110 370 L 810 370" fill="none" stroke="#f59e0b" stroke-width="2" marker-start="url(#one)" marker-end="url(#crow)"/>
+      <text x="960" y="360" text-anchor="middle" fill="#fcd34d" font-size="11">1 : N (Graded By)</text>
+
+      <!-- Entity 6: INTERVIEWER_NOTE (Right Bottom) -->
+      <g filter="url(#shadow)">
+        <rect x="960" y="300" width="300" height="175" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+        <rect x="960" y="300" width="300" height="35" rx="8" fill="#0891b2"/>
+        <text x="1110" y="323" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">INTERVIEWER_NOTE</text>
+        <text x="980" y="355" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>NoteID : VARCHAR(36)</text>
+        <text x="980" y="375" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>SessionID : VARCHAR(36)</text>
+        <text x="980" y="395" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>EvaluatorID : VARCHAR(36)</text>
+        <text x="980" y="415" fill="#f8fafc" font-size="11">NotesContent : TEXT</text>
+        <text x="980" y="435" fill="#f8fafc" font-size="11">QuickTags : TEXT (JSON)</text>
+        <text x="980" y="455" fill="#f8fafc" font-size="11">LastModifiedAt : DATETIME</text>
+      </g>
+
+      <!-- Relationship: INTERVIEW_SESSION (1) to INTERVIEWER_NOTE (N) -->
+      <path d="M 750 230 L 750 270 L 1050 270 L 1050 300" fill="none" stroke="#06b6d4" stroke-width="2" marker-start="url(#one)" marker-end="url(#crow)"/>
+      <text x="900" y="265" text-anchor="middle" fill="#67e8f9" font-size="11">1 : N (Records)</text>
+
+      <!-- Entity 7: TELEMETRY_STREAM_LOG (Bottom Span) -->
+      <g filter="url(#shadow)">
+        <rect x="280" y="540" width="760" height="180" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+        <rect x="280" y="540" width="760" height="35" rx="8" fill="#b91c1c"/>
+        <text x="660" y="563" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="14">TELEMETRY_STREAM_LOG (High-Frequency 6-DoF Timeseries)</text>
+        <text x="310" y="595" fill="#f8fafc" font-size="11"><tspan fill="#f59e0b" font-weight="bold">PK </tspan>LogID : BIGINT AUTO_INCREMENT</text>
+        <text x="310" y="615" fill="#f8fafc" font-size="11"><tspan fill="#38bdf8" font-weight="bold">FK </tspan>SessionID : VARCHAR(36) | <tspan fill="#38bdf8" font-weight="bold">FK </tspan>ParticipantID : VARCHAR(36)</text>
+        <text x="310" y="635" fill="#f8fafc" font-size="11">TimestampNanos : BIGINT (Epoch)</text>
+        <text x="310" y="655" fill="#f8fafc" font-size="11">HeadPosX, HeadPosY, HeadPosZ : FLOAT | HeadYaw, HeadPitch, HeadRoll : FLOAT</text>
+        <text x="310" y="675" fill="#f8fafc" font-size="11">VoiceActivityLevel : FLOAT (0.0..1.0) | ActiveVisemeWeight : FLOAT</text>
+        <text x="310" y="695" fill="#f8fafc" font-size="11">NetworkRoundTripLatencyMs : FLOAT (&lt;12ms SLA)</text>
+      </g>
+
+      <!-- Relationship: INTERVIEW_SESSION (1) to TELEMETRY_STREAM_LOG (N) -->
+      <line x1="660" y1="480" x2="660" y2="540" stroke="#ef4444" stroke-width="2" marker-start="url(#one)" marker-end="url(#crow)"/>
+      <text x="730" y="515" text-anchor="middle" fill="#fca5a5" font-size="11">1 : N (Captures)</text>
+    </svg>
+  </div>
+
+</body>
+</html>

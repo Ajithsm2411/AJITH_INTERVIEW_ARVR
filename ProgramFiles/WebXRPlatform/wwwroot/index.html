@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Executive VR Interview Telepresence Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 3D WebGL / WebXR Canvas Container -->
+  <div id="canvas-container">
+    <canvas id="gl-canvas"></canvas>
+  </div>
+
+  <!-- Reticle Crosshair for Desktop VR Simulator Mode -->
+  <div id="desktop-reticle"></div>
+
+  <!-- Top System & Role Bar -->
+  <header class="top-bar">
+    <div class="brand-badge">
+      <div class="brand-logo-icon">VR</div>
+      <div class="brand-title">MetaSphere Telepresence</div>
+      <div class="status-dot"></div>
+      <span id="connection-badge" style="font-size: 11px; color: var(--accent-cyan);">Connecting...</span>
+    </div>
+
+    <!-- Center Role Selector: Interviewer vs Candidate -->
+    <div class="role-switcher-container">
+      <button id="btn-role-interviewer" class="role-btn active" title="Switch perspective to Interviewer Chair">
+        <span class="role-icon">👔</span>
+        <span>Interviewer View</span>
+      </button>
+      <button id="btn-role-candidate" class="role-btn" title="Switch perspective to Candidate Chair">
+        <span class="role-icon">🧑‍💻</span>
+        <span>Candidate View</span>
+      </button>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="top-controls">
+      <button id="btn-toggle-mic" class="control-pill">
+        <span>🎤</span> Mic: On
+      </button>
+      <button id="btn-enter-vr" class="control-pill btn-enter-vr">
+        <span>🥽</span> Enter WebXR VR
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Pill in VR -->
+  <div id="vr-notification">Switched perspective to: INTERVIEWER VIEW</div>
+
+  <!-- Left Spatial Floating Overlay: Candidate/Interviewer Profile & Session Timer -->
+  <aside class="spatial-overlay-left">
+    <!-- Profile Card Panel -->
+    <div class="spatial-panel">
+      <div class="panel-header">
+        <div id="panel-profile-title" class="panel-title">
+          <span>👤</span> Candidate Profile
+        </div>
+        <div class="panel-badge">6-DoF Linked</div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar-thumb">
+          <span>👤</span>
+          <div class="speaking-indicator-ring"></div>
+        </div>
+        <div class="profile-info">
+          <div id="profile-name" class="profile-name">Alex Mercer</div>
+          <div id="profile-role" class="profile-role">Senior Spatial Systems Engineer</div>
+          <div id="profile-meta" class="profile-meta">8 Years • 94% Match</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Interview Timer & Audio Telemetry Panel -->
+    <div class="spatial-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>⏱</span> Interview Timer
+        </div>
+        <div class="panel-badge">LIVE</div>
+      </div>
+      <div class="timer-box">
+        <div>
+          <div class="timer-label">Elapsed Time</div>
+          <div id="timer-digits" class="timer-digits">00:00</div>
+        </div>
+        <div class="timer-actions">
+          <button id="btn-speak" class="timer-btn" title="Simulate vocal dialogue">💬 Dialogue (Space)</button>
+        </div>
+      </div>
+      <div class="audio-vu-container">
+        <span style="font-size: 11px; color: var(--text-muted); width: 60px;">Voice VU:</span>
+        <div class="vu-meter-bar">
+          <div id="vu-meter-fill" class="vu-meter-fill"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Spatial Floating Overlay: Questions Rubric & Interviewer Notes -->
+  <aside class="spatial-overlay-right">
+    <!-- Questions & Grading Rubric Panel -->
+    <div class="spatial-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>📋</span> Technical Rubric
+        </div>
+        <div class="panel-badge">5 Questions</div>
+      </div>
+      <div id="questions-list" class="questions-list">
+        <!-- Rendered dynamically by interview-app.js -->
+      </div>
+    </div>
+
+    <!-- Live Evaluation Notes Panel -->
+    <div class="spatial-panel notes-container">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>📝</span> Interview Notes
+        </div>
+        <div class="panel-badge">Auto-Saved</div>
+      </div>
+      <div class="quick-tags">
+        <button class="tag-btn">+ Strong Knowledge</button>
+        <button class="tag-btn">+ Clear Architecture</button>
+        <button class="tag-btn">+ Low Latency Mindset</button>
+        <button class="tag-btn">+ Follow-up Needed</button>
+      </div>
+      <textarea id="interview-notes" class="notes-textarea" placeholder="Add confidential interview evaluation notes here..."></textarea>
+    </div>
+  </aside>
+
+  <!-- Bottom Ergonomic Spatial Dock -->
+  <nav class="bottom-dock">
+    <button id="btn-dock-mic" class="dock-btn active">
+      <span>🎤</span> Mute Mic
+    </button>
+    <button id="btn-next-q" class="dock-btn">
+      <span>▶</span> Next Question
+    </button>
+    <button id="btn-end-interview" class="dock-btn danger">
+      <span>⏹</span> End Interview
+    </button>
+  </nav>
+
+  <!-- Modal: End Interview Summary & Scorecard -->
+  <div id="modal-end-interview" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Conclude Interview Session</div>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 10px;">Are you sure you want to end this interview session? Your scoring rubric, question assessments, and candidate notes will be finalized into the executive recruitment record.</p>
+        <div style="background: rgba(10, 16, 28, 0.6); padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="font-weight: 600; color: var(--accent-cyan); margin-bottom: 4px;">Candidate: Alex Mercer</div>
+          <div style="color: var(--text-muted); font-size: 12px;">Position: Senior Spatial Systems Engineer</div>
+          <div style="color: var(--accent-emerald); font-size: 12px; margin-top: 4px;">Status: Recommendation: Strong Hire (Score: 4.8 / 5)</div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-close-modal" class="btn-secondary">Cancel</button>
+        <button id="btn-confirm-end" class="btn-primary">Finalize & Submit Scorecard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="engine.js"></script>
+  <script src="interview-app.js"></script>
+</body>
+</html>
